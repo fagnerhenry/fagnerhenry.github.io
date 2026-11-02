@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FV TECH – Assistência técnica em videogames, controles e notebooks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root{--page:#d8d5ee;--ink:#1c1a3a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#0e0c22;--ink:#c9c6ee}}
+:root[data-theme="dark"]{--page:#0e0c22;--ink:#c9c6ee}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font-family:'VT323',monospace,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:16px 12px 24px}
+.shell{width:100%;max-width:460px;background:linear-gradient(160deg,#4558d6,#2a35a0 60%,#222c85);border-radius:26px 26px 90px 90px;padding:18px 18px 34px;box-shadow:inset 0 3px 0 #7d8cf5,inset 0 -6px 0 #181f66,0 14px 0 #141a55,0 24px 30px #0006}
+.brand{font:12px/1.5 'Press Start 2P',monospace;color:#ffd23f;text-align:center;margin:0 0 10px;text-shadow:2px 2px 0 #181f66}
+.brand small{display:block;font-size:8px;color:#d6dbff;margin-top:4px}
+.bezel{background:#15152b;border-radius:12px 12px 36px 12px;padding:16px;box-shadow:inset 0 0 0 3px #0a0a18}
+#screen{--bg:#0f0f2b;--fg:#fcfcfc;--hi:#f8b800;--dim:#8a8ad8;position:relative;height:440px;overflow-y:auto;background:var(--bg);color:var(--fg);font-size:23px;line-height:1.15;padding:14px;scrollbar-width:none;image-rendering:pixelated}
+#screen::-webkit-scrollbar{display:none}
+#screen[data-t="1"]{--bg:#0f380f;--fg:#9bbc0f;--hi:#cadc9f;--dim:#4c7a2c}
+#screen[data-t="2"]{--bg:#1a0a00;--fg:#ffb000;--hi:#ff6a00;--dim:#8a5200}
+.crt{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,#0000 0 2px,#0003 2px 3px)}
+.glass{position:relative}
+h1,h2{font-family:'Press Start 2P',monospace;font-weight:400;color:var(--hi);margin:0 0 14px;line-height:1.5}
+h1{font-size:26px;text-align:center;margin-top:16px;text-shadow:3px 3px 0 var(--dim)}
+h2{font-size:13px}
+.c{text-align:center}
+.blink{font-family:'Press Start 2P',monospace;font-size:11px;margin-top:34px;animation:b 1s steps(2) infinite}
+@keyframes b{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.blink{animation:none}}
+.menu{list-style:none;margin:20px 0 0;padding:0}
+.menu li{font-family:'Press Start 2P',monospace;font-size:11px;padding:11px 0 11px 26px;position:relative;cursor:pointer}
+.menu li.on{color:var(--hi)}
+.menu li.on::before{content:"";position:absolute;left:4px;top:11px;border:7px solid transparent;border-left:11px solid var(--hi);border-right:0}
+.hint{color:var(--dim);margin-top:22px;font-size:20px}
+.item{margin:0 0 13px}
+.item b{color:var(--hi);font-weight:400;display:block}
+.fase{margin:0 0 15px;padding-left:12px;border-left:4px solid var(--hi)}
+.fase b{font-family:'Press Start 2P',monospace;font-size:10px;color:var(--hi);font-weight:400;display:block;margin-bottom:5px}
+a.zap{display:block;margin:14px 0;padding:12px;text-align:center;border:4px solid var(--hi);color:var(--bg);background:var(--hi);font-family:'Press Start 2P',monospace;font-size:11px;text-decoration:none}
+.ctrl{display:flex;justify-content:space-between;align-items:center;margin:26px 6px 0}
+.dpad{display:grid;grid-template-columns:repeat(3,46px);grid-template-rows:repeat(3,46px)}
+.dpad button{border:0;background:#14142b;color:#7d8cf5;font:0/0 sans-serif;box-shadow:0 4px 0 #05050f;cursor:pointer}
+.dpad button:active,.ab button:active,.pill:active{transform:translateY(3px);box-shadow:none}
+.dpad .u{grid-area:1/2;border-radius:8px 8px 0 0}.dpad .l{grid-area:2/1;border-radius:8px 0 0 8px}.dpad .r{grid-area:2/3;border-radius:0 8px 8px 0}.dpad .d{grid-area:3/2;border-radius:0 0 8px 8px}
+.dpad .m{grid-area:2/2;background:#14142b}
+.ab{display:flex;gap:16px;transform:rotate(-18deg)}
+.ab button{width:60px;height:60px;border-radius:50%;border:0;background:#e63946;color:#fff;font:16px 'Press Start 2P',monospace;box-shadow:0 5px 0 #7c1520,inset 0 -4px 0 #b02634;cursor:pointer}
+.ab button:last-child{margin-top:26px}
+.mid{display:flex;justify-content:center;gap:26px;margin-top:22px;transform:rotate(-18deg)}
+.pill{width:58px;height:16px;border-radius:9px;border:0;background:#14142b;box-shadow:0 3px 0 #05050f;color:#d6dbff;font:7px 'Press Start 2P',monospace;padding:0;cursor:pointer;position:relative}
+.pill span{position:absolute;top:22px;left:50%;transform:translateX(-50%);white-space:nowrap}
+button:focus-visible{outline:3px solid #ffd23f;outline-offset:3px}
+.tip{max-width:460px;margin:36px 8px 0;text-align:center;font-size:20px;opacity:.8}
+.g .hud{display:flex;justify-content:space-between;font:9px 'Press Start 2P',monospace;color:var(--dim);margin-bottom:8px}
+#cena{width:100%;height:auto;display:block;margin-bottom:10px;border:3px solid var(--dim);image-rendering:pixelated}
+.g p{margin:0 0 8px}.say{min-height:60px}.say b{color:var(--hi);font-weight:400}
+.g .menu{margin:6px 0 0}.g .menu li{font:22px/1.1 'VT323',monospace;padding:6px 0 6px 26px}.g .menu li.on::before{top:8px}
+a.zap.off{background:transparent;color:var(--hi)}
+</style>
+</head>
+<body>
+<main class="shell">
+  <p class="brand">SUPER FV TECH 999 EM 1<small>VIDEOGAMES, CONTROLES E NOTEBOOKS</small></p>
+  <div class="bezel">
+    <div class="glass"><div id="screen" data-t="0" aria-live="polite"></div><div class="crt"></div></div>
+  </div>
+  <div class="ctrl">
+    <div class="dpad">
+      <button class="u" data-k="up" aria-label="Cima">▲</button>
+      <button class="l" data-k="b" aria-label="Esquerda, voltar">◀</button>
+      <button class="m" tabindex="-1" aria-hidden="true"></button>
+      <button class="r" data-k="a" aria-label="Direita, confirmar">▶</button>
+      <button class="d" data-k="down" aria-label="Baixo">▼</button>
+    </div>
+    <div class="ab">
+      <button data-k="b" aria-label="Botão B, voltar">B</button>
+      <button data-k="a" aria-label="Botão A, confirmar">A</button>
+    </div>
+  </div>
+  <div class="mid">
+    <button class="pill" data-k="select" aria-label="Select, trocar cores"><span>SELECT</span></button>
+    <button class="pill" data-k="start" aria-label="Start, ir ao menu"><span>START</span></button>
+  </div>
+</main>
+<p class="tip">No teclado: setas, Enter para confirmar, Esc para voltar.</p>
+
+<script>
+// Edite aqui os dados da empresa
+var NOME='FV TECH', WHATS='5513997950928', FONE='(13) 99795-0928', ENDERECO='Loja 04 (dentro do shopping), Av. Adhemar de Barros, 2319, Santa Rosa, Guarujá/SP', HORARIO='Consulte pelo WhatsApp';
+var AVALIACAO=''; // cole aqui o link de avaliação do Google da sua loja
+var MSG='Vim pelo site, poderia me ajudar?'; // mensagem que já vem escrita no WhatsApp
+var MAPS='https://maps.app.goo.gl/JCme2t8pWQxo39wUA?g_st=ic'; // link da empresa no Google Maps
+var WALINK='https://wa.me/'+WHATS+'?text='+encodeURIComponent(MSG), cs=0;
+function zb(i,h,t){return '<a class="zap'+(cs==i?'':' off')+'" href="'+h+'" target="_blank" rel="noopener">'+t+'</a>'}
+
+var scr=document.getElementById('screen'), s='title', cur=0, theme=0, ac;
+var menu=[['jogo','1  JOGAR'],['servicos','2  SERVIÇOS'],['como','3  COMO FUNCIONA'],['contato','4  CONTATO']];
+var v={
+ title:function(){return '<h1>FV<br>TECH</h1><p class="c">Assistência técnica em videogames, controles e notebooks</p><p class="c blink">PRESS START</p><p class="c hint">1 JOGADOR</p>'},
+ menu:function(){return '<h2>SELECIONE A FASE</h2><ul class="menu">'+menu.map(function(m,i){return '<li data-i="'+i+'" class="'+(i==cur?'on':'')+'">'+m[1]+'</li>'}).join('')+'</ul><p class="hint">Cima e baixo escolhem. A confirma. B volta.</p>'},
+ servicos:function(){return '<h2>SERVIÇOS</h2>'+[
+  ['Consoles atendidos','PlayStation 4, PlayStation 5, Xbox Series S e Nintendo Switch.'],
+  ['Sem imagem na TV','Troca da porta HDMI do console.'],
+  ['Analógico com drift','Reparo ou troca do módulo do analógico.'],
+  ['Esquenta e desliga','Limpeza interna e troca da pasta térmica.'],
+  ['Leitor não lê o disco','Diagnóstico e reparo do leitor.'],
+  ['Não liga','Diagnóstico da placa para achar o defeito.'],
+  ['Notebooks','Diagnóstico e reparo de notebooks.']
+ ].map(function(x){return '<p class="item"><b>'+x[0]+'</b>'+x[1]+'</p>'}).join('')+'<p class="hint">B volta ao menu</p>'},
+ como:function(){return '<h2>COMO FUNCIONA</h2>'+[
+  ['PASSO 1','Você conta o defeito e deixa o aparelho com a gente.'],
+  ['PASSO 2','A gente testa e descobre o que está errado.'],
+  ['PASSO 3','Você recebe o orçamento e só segue se aprovar.'],
+  ['PASSO 4','Conserto feito. Você retira e volta a jogar.']
+ ].map(function(x){return '<div class="fase"><b>'+x[0]+'</b>'+x[1]+'</div>'}).join('')+'<p class="hint">B volta ao menu</p>'},
+ contato:function(){return '<h2>CONTATO</h2>'+zb(0,WALINK,'CHAMAR NO WHATSAPP')+zb(1,MAPS,'ABRIR NO GOOGLE MAPS')+'<p class="item"><b>Telefone</b>'+FONE+'</p><p class="item"><b>Endereço</b>'+ENDERECO+'</p><p class="item"><b>Horário</b>'+HORARIO+'</p><p class="hint">Cima e baixo escolhem. A abre. B volta.</p>'}
+};
+function go(n){s=n;if(n!='contato')cs=0;scr.innerHTML=v[n]();scr.scrollTop=0;if(n=='jogo')gdraw()}
+function beep(f){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain();o.type='square';o.frequency.value=f;g.gain.value=.04;o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+.07)}catch(e){}}
+function press(k){
+ beep({a:880,b:440,start:990,select:660}[k]||550);
+ if(s=='jogo'){gkey(k);return}
+ if(k=='up'||k=='down'){var d=k=='up'?-1:1;if(s=='menu'){cur=(cur+d+menu.length)%menu.length;go('menu')}else if(s=='contato'){cs=1-cs;go('contato')}else scr.scrollBy(0,d*50)}
+ else if(k=='a'){if(s=='title')go('menu');else if(s=='menu')go(menu[cur][0]);else if(s=='contato')window.open(cs?MAPS:WALINK,'_blank','noopener')}
+ else if(k=='b'){if(s=='menu')go('title');else if(s!='title')go('menu')}
+ else if(k=='start')go('menu');
+ else if(k=='select'){theme=(theme+1)%3;scr.dataset.t=theme}
+}
+document.querySelectorAll('[data-k]').forEach(function(b){b.addEventListener('click',function(){press(b.dataset.k)})});
+scr.addEventListener('click',function(e){var li=e.target.closest('li[data-i]');if(li){if(s=='jogo'){G.sel=+li.dataset.i;press('a')}else{cur=+li.dataset.i;beep(880);go(menu[cur][0])}}else if(s=='title')press('a')});
+document.addEventListener('keydown',function(e){
+ if(e.target.tagName=='BUTTON'&&(e.key=='Enter'||e.key==' '))return;
+ var m={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'b',ArrowRight:'a',Enter:'a',Escape:'b',Backspace:'b'}[e.key];
+ if(m){e.preventDefault();press(m)}
+});
+/* ===== JOGO: para mudar clientes, defeitos e passos, edite a lista FASES =====
+   cli = nome do cliente | con = console | cor = cor do console | cam = cor da camisa
+   prob = o que o cliente fala | elogio = fala na retirada
+   p = passos do conserto: [pergunta, resposta CERTA, errada, errada] */
+var FASES=[
+{cli:'Rafael',con:'PS4',cor:'#1d1d2b',cam:'#2a9d8f',prob:'Ele não liga de jeito nenhum. Nem a luzinha acende.',elogio:'Que rapidez! Ligou de primeira. Muito obrigado!',p:[
+['Console sem sinal de vida. O que testar primeiro?','Testar a fonte com o multímetro','Trocar o HD','Reinstalar o sistema'],
+['A fonte está queimada. E agora?','Trocar por uma fonte nova compatível','Soldar um fio direto na placa','Passar álcool na fonte'],
+['Fonte nova instalada. Falta o quê?','Ligar e testar o console','Devolver sem testar','Trocar a carcaça']]},
+{cli:'Caio',con:'Xbox Series S',cor:'#f1f1f1',cam:'#f4a261',prob:'Ele esquenta, faz barulho de ventilador e desliga no meio do jogo.',elogio:'Agora ele nem esquenta! Serviço caprichado, parabéns!',p:[
+['Superaquecimento. Primeiro passo?','Abrir e limpar a poeira do cooler e do dissipador','Aumentar o volume da TV','Instalar mais jogos'],
+['A pasta térmica está ressecada. E aí?','Remover a antiga e aplicar pasta nova','Colocar outra camada por cima','Deixar como está'],
+['Remontando o dissipador:','Apertar os parafusos em cruz, aos poucos','Apertar um parafuso até o fim primeiro','Dispensar alguns parafusos']]},
+{cli:'Bruna',con:'Nintendo Switch',cor:'#e63946',cam:'#8338ec',prob:'Não carrega mais. Só funciona se eu entortar o cabo.',elogio:'Atendimento nota 10 e o Switch carregando perfeito. Vou indicar pros amigos!',p:[
+['Suspeita de conector danificado. Primeiro?','Testar com outro cabo e fonte originais','Trocar a tela','Apagar os jogos salvos'],
+['Conector folgado. Antes de abrir a placa:','Desconectar a bateria','Soldar com a bateria ligada','Usar um martelo'],
+['Hora de trocar o conector:','Remover o antigo com ar quente e soldar o novo','Colar com cola quente','Cobrir com fita']]},
+{cli:'Thiago',con:'PS5',cor:'#f1f1f1',cam:'#264653',prob:'Liga, mas fica sem imagem. Já troquei de cabo e de TV.',elogio:'Imagem perfeita no PS5! Poucos fazem esse serviço assim. Valeu!',p:[
+['Suspeita de porta HDMI. Primeiro?','Inspecionar a porta e testar outro cabo HDMI','Trocar o SSD','Reinstalar o sistema'],
+['Pinos da porta soltos. Para acessar:','Abrir o console e remover o dissipador com cuidado','Cortar a porta com alicate','Espremer a porta'],
+['Para soltar a porta da placa:','Usar fluxo e ar quente na temperatura correta','Usar a chama de um isqueiro','Ferro de solda no máximo, por muito tempo'],
+['Porta nova soldada. Falta o quê?','Testar imagem, som e 4K na TV','Entregar sem testar','Trocar o controle']]},
+{cli:'Larissa',con:'Nintendo Switch',cor:'#00b4d8',cam:'#ff70a6',prob:'Caiu na água e agora não liga.',elogio:'Achei que meu Switch tinha morrido. Você é um mago da bancada! Vou te avaliar com 5 estrelas no Google e recomendar pra todo mundo!',p:[
+['Primeira atitude:','Desligar, abrir e desconectar a bateria','Ligar para ver se pega','Usar secador bem quente'],
+['Placa com resíduos:','Limpar com álcool isopropílico e escova antiestática','Mergulhar em água com sabão','Passar um pano seco só por cima'],
+['Depois da limpeza:','Secar bem antes de ligar','Ligar na hora','Aplicar óleo na placa'],
+['Ainda sem energia. Diagnosticar:','Medir o consumo na fonte de bancada','Trocar a carcaça','Reinstalar os jogos']]}
+];
+var G={run:0};
+function gstart(){G={run:1};glvl(0)}
+function glvl(n){var L=FASES[n];G.n=n;G.v=3;G.ph='d';G.i=0;G.k=0;G.sel=0;G.msg='';
+ G.cards=[['eu','Olá! Bem-vindo à '+NOME+'. O que aconteceu com o seu '+L.con+'?','c'],[L.cli,L.prob,'c'],['eu','Entendi. Vou dar uma olhada na bancada.','c']];
+ G.out=[['eu','Teste completo feito! Mandei no WhatsApp: “'+L.cli+', seu '+L.con+' está pronto!”','b'],[L.cli,L.elogio,'c'],['eu','Obrigado! Volte sempre à '+NOME+'.','c']]}
+function gopts(){var o=FASES[G.n].p[G.k].slice(1).map(function(t,i){return{t:t,ok:i==0}});o.sort(function(){return Math.random()-.5});G.o=o;G.sel=0}
+v.jogo=function(){if(!G.run)gstart();return gview()};
+function gview(){var L=FASES[G.n],p=G.ph,h='<div class="g"><div class="hud"><span>FASE '+(G.n+1)+'/'+FASES.length+'</span><span>VIDAS: '+G.v+'</span></div>';
+ if(p=='over')return h+'<h2>GAME OVER</h2><p>O aparelho ficou sem conserto. Tente de novo!</p><p class="hint">A tenta a fase outra vez. START volta ao menu.</p></div>';
+ if(p=='fim')return '<div class="g"><h2>VOCÊ ZEROU!</h2><p>Todos os consertos feitos e todos os clientes felizes. Agora é só trazer o seu aparelho de verdade.</p><a class="zap" href="'+WALINK+'" target="_blank" rel="noopener">CHAMAR NO WHATSAPP</a>'+(AVALIACAO?'<a class="zap" href="'+AVALIACAO+'" target="_blank" rel="noopener">AVALIAR NO GOOGLE</a>':'')+'<p class="hint">A volta ao menu</p></div>';
+ var c=p=='d'?G.cards[G.i]:p=='o'?G.out[G.i]:0;G.sc=p=='r'?'b':c[2];
+ h+='<canvas id="cena" width="96" height="36"></canvas>';
+ if(c)return h+'<p class="say"><b>'+(c[0]=='eu'?'VOCÊ':c[0].toUpperCase())+':</b> '+c[1]+'</p><p class="hint">A continua</p></div>';
+ return h+'<p class="say">'+FASES[G.n].p[G.k][0]+'</p><ul class="menu">'+G.o.map(function(o,i){return '<li data-i="'+i+'" class="'+(i==G.sel?'on':'')+'">'+o.t+'</li>'}).join('')+'</ul><p class="hint">'+G.msg+'</p></div>'}
+function gkey(k){
+ if(k=='start'){G.run=0;go('menu');return}
+ if(k=='select'){theme=(theme+1)%3;scr.dataset.t=theme;return}
+ var p=G.ph;
+ if(p=='r'&&(k=='up'||k=='down')){G.sel=(G.sel+(k=='up'?2:1))%3;go('jogo');return}
+ if(k!='a')return;
+ if(p=='d'){if(++G.i>=G.cards.length){G.ph='r';G.k=0;gopts()}}
+ else if(p=='r'){if(G.o[G.sel].ok){G.msg='Boa! Passo certo.';if(++G.k>=FASES[G.n].p.length){G.ph='o';G.i=0;G.msg=''}else gopts()}else{G.msg='Ops! Esse passo estragaria o aparelho. Perdeu 1 vida.';if(--G.v<=0)G.ph='over';else gopts()}}
+ else if(p=='o'){if(++G.i>=G.out.length){if(G.n>=FASES.length-1)G.ph='fim';else glvl(G.n+1)}}
+ else if(p=='over')glvl(G.n);
+ else if(p=='fim'){G.run=0;go('menu');return}
+ go('jogo')}
+function gdraw(){var c=document.getElementById('cena');if(!c)return;var X=c.getContext('2d'),L=FASES[G.n];
+ function R(x,y,w,h,f){X.fillStyle=f;X.fillRect(x,y,w,h)}
+ R(0,0,96,36,'#26264f');R(0,0,96,2,'#3a3a7a');
+ if(G.sc=='b'){R(0,24,96,12,'#555');R(0,24,96,2,'#777');R(22,11,52,13,L.cor);R(27,15,24,2,'#111');R(60,15,4,4,'#3f3');R(66,15,4,4,'#e63946');R(8,20,10,3,'#999');R(76,21,14,2,'#ccc');R(88,19,4,6,'#e63946')}
+ else{R(14,4,12,4,['#3b2a1a','#111','#c98a2b'][G.n%3]);R(14,6,12,10,'#f1c27d');R(17,10,2,2,'#000');R(22,10,2,2,'#000');R(12,16,16,12,L.cam);R(0,26,96,10,'#6b4a2b');R(0,26,96,2,'#8a6238');R(52,18,26,8,L.cor);R(55,21,12,2,'#111');R(70,21,3,3,'#3f3')}}
+go('title');
+</script>
+</body>
+</html>
